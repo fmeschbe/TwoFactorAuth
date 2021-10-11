@@ -48,6 +48,7 @@ if (!defined("INCLUSION_ENABLED")) {
             </ul>
             <span class="fa fa-exclamation-triangle"></span> Current settings from the config.php :<br>
             <ul>
+                <li> USER_SQL_DATABASE_FILE : <strong><?php echo htmlspecialchars(USER_SQL_DATABASE_FILE, ENT_QUOTES); ?></strong></li>
                 <li> SESSION_NAME : <strong><?php echo htmlspecialchars(SESSION_NAME, ENT_QUOTES); ?></strong></li>
                 <li> QRCODE_TITLE : <strong><?php echo htmlspecialchars(QRCODE_TITLE, ENT_QUOTES); ?></strong></li>
                 <li> AUTH_SUCCEED_REDIRECT_URL : <strong><?php echo htmlspecialchars(AUTH_SUCCEED_REDIRECT_URL, ENT_QUOTES); ?></strong></li>
