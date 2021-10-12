@@ -20,7 +20,8 @@ $baseUrl = dirname($_SERVER["SCRIPT_NAME"]);
 // deployed on a server and the installation hasn't been performed yet, then redirect
 // to the insstallation page
 if (!file_exists(USER_SQL_DATABASE_FILE)) {
-	$redirectTo = ((isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on")? "https://" : "http://").$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$baseUrl."/install/install.php";
+        $redirectHost = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+	$redirectTo = ((isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on")? "https://" : "http://").$redirectHost.$baseUrl."/install/install.php";
 	header("Location: ".$redirectTo,true,302);
 }
 else {
@@ -78,8 +79,9 @@ EOT;
 EOT;
     }
     else {
-        $redirectTo = ((isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on")? "https://" : "http://").$_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$baseUrl."/login/login.php";
-		header("Location: ".$redirectTo,true,302);
+        $redirectHost = isset($_SERVER["HTTP_HOST"]) ? $_SERVER["HTTP_HOST"] : $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+	$redirectTo = ((isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on")? "https://" : "http://").$redirectHost.$baseUrl."/login/login.php";
+	header("Location: ".$redirectTo,true,302);
     }
 	
 }
