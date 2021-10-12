@@ -20,7 +20,7 @@ case "${MACHINE_ARCH}" in
     ARCH="armhf"
     ARCH_TAG="arm32v7"
     ;;
-  aarch64)
+  aarch64|arm64)
     echo "Building for 64bit ARM"
     ARCH="aarm64"
     ARCH_TAG="arm64v8"
