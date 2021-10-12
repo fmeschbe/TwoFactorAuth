@@ -1,0 +1,50 @@
+FROM ghcr.io/linuxserver/baseimage-alpine-nginx:#{ARCH_TAG}-3.14
+
+# set version label
+ARG BUILD_DATE
+ARG VERSION
+ARG NGINX_VERSION
+LABEL build_version="meschberger.ch version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="fmeschbe"
+
+# environment settings
+ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
+
+# install packages
+RUN \
+  apk add --no-cache --upgrade \
+    curl && \
+  if [ -z ${NGINX_VERSION+x} ]; then \
+    NGINX_VERSION=$(curl -sL "http://dl-cdn.alpinelinux.org/alpine/v3.13/main/x86_64/APKINDEX.tar.gz" | tar -xz -C /tmp \
+    && awk '/^P:nginx$/,/V:/' /tmp/APKINDEX | sed -n 2p | sed 's/^V://'); \
+  fi && \
+  apk add --no-cache --upgrade \
+    nginx==${NGINX_VERSION} \
+    php7-gd \
+    php7-sqlite3 && \
+  echo "**** configure nginx ****" && \
+  rm -f /etc/nginx/http.d/default.conf && \
+  mv /defaults/nginx.conf /etc/nginx && \
+  rm -f /defaults/* && \
+  sed -i \
+    '\|include /config/nginx/site-confs/\*;|d' \
+    /etc/nginx/nginx.conf && \
+  sed -i \
+    's|/config/nginx/nginx.conf|/etc/nginx/nginx.conf|g' \
+    /etc/services.d/nginx/run
+
+# add local files
+COPY root/ /
+
+# remove support for custom files and folders
+RUN rm /etc/cont-init.d/??-custom-f*
+
+# copy web app
+COPY config.php index.php /var/www/TwoFactorAuth/2fa/
+COPY admin /var/www/TwoFactorAuth/2fa/admin
+COPY css /var/www/TwoFactorAuth/2fa/css
+COPY install /var/www/TwoFactorAuth/2fa/install
+COPY lib /var/www/TwoFactorAuth/2fa/lib
+COPY login /var/www/TwoFactorAuth/2fa/login
+COPY nginx /var/www/TwoFactorAuth/2fa/nginx
+COPY user /var/www/TwoFactorAuth/2fa/user

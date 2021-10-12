@@ -1,0 +1,30 @@
+#!/usr/bin/with-contenv bash
+
+# adapt configuration files to two environment variables:
+#   QR_CODE_TITLE .. the title for the two factor auth QR codes
+#   SERVER_NAME   .. the domain under which the service is accessible
+
+check_parm () {
+  local PARM="$1"
+  local PARM_DEFAULT="$2"
+
+  if [ -n "${PARM}" ] ; then
+    echo "${PARM}"
+  else
+    echo "${PARM_DEFAULT}"
+  fi
+}
+
+_QR_CODE_TITLE_=$(check_parm "${QR_CODE_TITLE}" "Example Corp")
+_SERVER_NAME_=$(check_parm "${SERVER_NAME}" "www.example.com")
+
+# adapt config.php
+sed -i \
+  -e "s|#{QR_CODE_TITLE}|${_QR_CODE_TITLE_}|g" \
+  -e "s|#{SERVER_NAME}|${_SERVER_NAME_}|g" \
+  /var/www/TwoFactorAuth/2fa/config.php
+
+# adapt nginx/httpd./default
+sed -i \
+  -e "s|#{SERVER_NAME}|${_SERVER_NAME_}|g" \
+  /etc/nginx/http.d/default.conf

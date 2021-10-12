@@ -12,8 +12,8 @@
 //========================================================================
 
 // Setting the path to the users database file
-define('USER_SQL_DATABASE_DIRECTORY', dirname(__FILE__).DIRECTORY_SEPARATOR.'db');
-define('USER_SQL_DATABASE_FILE', dirname(__FILE__).DIRECTORY_SEPARATOR.'db'.DIRECTORY_SEPARATOR.'users.sqlite3');
+define('USER_SQL_DATABASE_DIRECTORY', '/config'.DIRECTORY_SEPARATOR.'db');
+define('USER_SQL_DATABASE_FILE', USER_SQL_DATABASE_DIRECTORY.DIRECTORY_SEPARATOR.'users.sqlite3');
 
 //========================================================================
 // Library settings
@@ -36,12 +36,12 @@ define('NOCSRF_LIB',LIB_DIR.'nocsrf.php');
 //========================================================================
 
 // Setting the temporary directory to hold generated QR codes
-define('QRCODE_TEMP_DIR',dirname(__FILE__).DIRECTORY_SEPARATOR.'temp'.DIRECTORY_SEPARATOR);
+define('QRCODE_TEMP_DIR','/tmp'.DIRECTORY_SEPARATOR);
 
 // Set the title that will be used for the QRCode generated
 // This title appears in the Google authenticator App to help identifying what the token relates to
 // --> CHANGE THIS TO YOUR OWN MEANINGFUL TITLE
-define('QRCODE_TITLE','www.example.com');
+define('QRCODE_TITLE','#{QR_CODE_TITLE}');
 
 //========================================================================
 // Application & Session settings
@@ -57,7 +57,8 @@ define('SESSION_NAME','2fatkn');
 // is passed as a GET parameter to the login page, then the user will be redirected back to
 // the originating URL
 // Otherwise, redirect to the URL specified here
-define('AUTH_SUCCEED_REDIRECT_URL','https://www.example.com/');
+define('AUTH_SUCCEED_REDIRECT_URL','http://#{SERVER_NAME}/2fa');
+
 
 // If you are using TwoFactorAuth with nginx, and are experiencing common issues
 // like infinite redirects or failed authentications, you can log authentication
