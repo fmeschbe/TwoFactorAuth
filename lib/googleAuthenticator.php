@@ -101,9 +101,9 @@ class GoogleAuthenticator
      * @param string $title
      */
     public function getQRCode($name, $secret, $filename, $title = null) {
-        $url = 'otpauth://totp/'.$name.'?secret='.$secret;
+        $url = 'otpauth://totp/'.rawurlencode($name).'?secret='.$secret;
 	if(isset($title)) {
-                $url .= '&issuer='.$title;
+                $url .= '&issuer='.rawurlencode($title);
         }
         QRcode::png($url,$filename,QR_ECLEVEL_Q);
     }
