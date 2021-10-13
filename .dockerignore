@@ -1,0 +1,9 @@
+# Exclusions from the docker build context
+
+# All git files (most notably the .git directory !)
+.git*
+
+# The build controll files
+Dockerfile-template
+build.sh
+
