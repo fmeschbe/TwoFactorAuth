@@ -69,19 +69,19 @@ html {
 		    <form id="connectionForm" action="login.php<?php echo $safe_from; ?>" method="post" style="padding: 10px">
 				<div id="inputgroup1" class="input-group">
 					<span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
-					<input type="text" class="form-control" placeholder="Username" id="username" name="username" autocomplete="off" autofocus>
+					<input type="text" class="form-control" placeholder="Username" id="username" name="username" autocomplete="username" autofocus>
 				</div>
 				<div id="usernameFeedback" class="text-center feedback"></div>
 				<br>
 				<div id="inputgroup2" class="input-group">
 					<span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></span>
-					<input type="password" placeholder="Password" class="form-control" id="password" name="password">
+					<input type="password" placeholder="Password" class="form-control" id="password" name="password" autocomplete="current-password">
 				</div>
 				<div id="passwordFeedback" class="text-center feedback"></div>
 				<br>
 				<div id="inputgroup3" class="input-group">
 					<span class="input-group-addon"><span class="fa fa-key"></span></span>
-					<input type="text" placeholder="Token" class="form-control" id="token" name="token" autocomplete="off">
+					<input type="text" placeholder="Token" class="form-control" id="token" name="token" autocomplete="one-time-code">
 				</div>
 				<div id="tokenFeedback" class="text-center feedback"></div>
 				<br>
